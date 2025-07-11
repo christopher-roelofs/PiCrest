@@ -74,18 +74,20 @@ function FontLib_setLetter(fnt, _x, l, _y)
 	FontLib[fnt][l] = {x = _x, y = _y or 0}
 end
 
-for i = 0, #FontLib do
-	local x, w = 0, FontLib[i].width
-	for j = 1, #FontLib[i].letters do
-		if i == 4 then
-			if (j - 1) % FontLib[i].maxSyms == 0 and j > 1 then
-				x = 0
+for i = 0, 4 do
+	if FontLib[i] then
+		local x, w = 0, FontLib[i].width
+		for j = 1, #FontLib[i].letters do
+			if i == 4 then
+				if (j - 1) % FontLib[i].maxSyms == 0 and j > 1 then
+					x = 0
+				end
+				FontLib_setLetter(i, x, FontLib[i].letters[j], math.floor((j-1) / FontLib[i].maxSyms)*FontLib[i].height +  math.floor((j-1) / FontLib[i].maxSyms))
+				x = x + w
+			else
+				FontLib_setLetter(i, x, FontLib[i].letters[j])
+				x = x + w
 			end
-			FontLib_setLetter(i, x, FontLib[i].letters[j], math.floor((j-1) / FontLib[i].maxSyms)*FontLib[i].height +  math.floor((j-1) / FontLib[i].maxSyms))
-			x = x + w
-		else
-			FontLib_setLetter(i, x, FontLib[i].letters[j])
-			x = x + w
 		end
 	end
 end
@@ -98,7 +100,9 @@ function FontLib_print(x, y, text, clr, fnt)
 		if not FontLib[fnt][l] then
 			l='^'
 		end
-		_FL_DPI(x, y,_FL_TEX,FontLib[fnt][l].x, s+FontLib[fnt][l].y, w, h, clr)
+		if FontLib[fnt][l] then
+			_FL_DPI(x, y,_FL_TEX,FontLib[fnt][l].x, s+FontLib[fnt][l].y, w, h, clr)
+		end
 		x = x + w
 	end
 end

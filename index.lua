@@ -3,7 +3,7 @@ error = function(...)
 	olderror(debug.traceback(...))
 end
 
-DEVMODE, DEFDIRECTORY = false, "app0:"
+DEVMODE, DEFDIRECTORY = false, ""
 local Color_new = Color.new
 local Graphics_drawImage = Graphics.drawImage
 local Graphics_drawImageExtended = Graphics.drawImageExtended
@@ -85,7 +85,8 @@ libDir = datDir.."lib/"
 lvlDir = datDir.."lvl/"
 thmDir = datDir.."thm/"
 txrDir = datDir.."txr/"
-dir = "ux0:data/PiCrest/"
+--dir = "ux0:data/PiCrest/"
+dir = ""
 cnfgDir = dir.."config.ini"
 clvlDir = dir.."levels/"
 dbDir = dir.."save.db"
